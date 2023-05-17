@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   threads_word.c                                     :+:      :+:    :+:   */
+/*   threads_work.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adnane <adnane@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 12:51:55 by adnane            #+#    #+#             */
-/*   Updated: 2023/05/17 13:09:51 by adnane           ###   ########.fr       */
+/*   Updated: 2023/05/17 15:22:07 by adnane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	*philosopher(void *arg)
 
 void	pick_up_forks(t_philosopher *info)
 {
-	if (info->id % 2 == 0)
+	if (info->id % 2 != 0)
 	{
 		pthread_mutex_lock(info->left_fork);
 		print_message(info->thread_info->very_start, info->id,
@@ -52,6 +52,9 @@ void	eat(t_philosopher *info)
 {
 	print_message(info->thread_info->very_start, info->id,
 		"is eating...", &info->thread_info->print);
+	pthread_mutex_lock(&info->thread_info->last_meal_mutex);
+	info->last_meal = get_period(info->thread_info->very_start);
+	pthread_mutex_unlock(&info->thread_info->last_meal_mutex);
 	usleep(info->thread_info->time_to_eat * 1000);
 }
 

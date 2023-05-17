@@ -6,7 +6,7 @@
 /*   By: adnane <adnane@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 12:16:53 by adnane            #+#    #+#             */
-/*   Updated: 2023/05/17 13:10:03 by adnane           ###   ########.fr       */
+/*   Updated: 2023/05/17 15:00:40 by adnane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,17 @@ typedef struct s_philosopher
 	pthread_mutex_t		*right_fork;
 	struct s_thread		*thread_info;
 	int					id;
+	int					last_meal;
 }	t_philosopher;
 
 typedef struct s_thread
 {
 	pthread_mutex_t		*forks;
 	pthread_mutex_t		print;
+	pthread_mutex_t		last_meal_mutex;
 	t_philosopher		*info;
 	pthread_t			*philosophers;
+	pthread_t			death_checker;
 	int					num_philo;
 	int					time_to_die;
 	int					time_to_sleep;
@@ -48,11 +51,13 @@ int		ft_isdigit(int c);
 int		get_period(int start_ms);
 void	print_message(int start, int id, char *message,
 			pthread_mutex_t *shared_mutex);
+void	free_all(t_thread *thread);
 void	allocate(t_thread *thread);
 void	set_thread_params(t_thread *thread, char **av);
 void	create_threads(t_thread *thread);
-void	initialize_mutexes(t_thread thread);
+void	initialize_mutexes(t_thread *thread);
 void	create_philosophers(t_thread *thread);
+void	*death_checker(void *arg);
 void	join_philosophers(t_thread *thread);
 void	destroy_mutexes(t_thread *thread);
 void	*philosopher(void *arg);

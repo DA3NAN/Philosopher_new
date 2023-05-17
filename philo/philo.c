@@ -6,7 +6,7 @@
 /*   By: adnane <adnane@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 12:20:02 by adnane            #+#    #+#             */
-/*   Updated: 2023/05/17 12:58:30 by adnane           ###   ########.fr       */
+/*   Updated: 2023/05/17 15:07:43 by adnane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	main(int ac, char **av)
 	thread.num_philo = ft_atoi(av[1]);
 	allocate(&thread);
 	set_thread_params(&thread, av);
-	initialize_mutexes(thread);
+	initialize_mutexes(&thread);
 	create_threads(&thread);
 	return (0);
 }

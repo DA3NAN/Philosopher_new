@@ -6,7 +6,7 @@
 /*   By: adnane <adnane@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 22:39:34 by adnane            #+#    #+#             */
-/*   Updated: 2023/05/17 13:05:08 by adnane           ###   ########.fr       */
+/*   Updated: 2023/05/17 15:25:43 by adnane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,13 @@ void	print_message(int start, int id, char *message,
 			pthread_mutex_t *shared_mutex)
 {
 	pthread_mutex_lock(shared_mutex);
-	printf("|%d| Philosopher %d %s\n", get_period(start), id, message);
+	printf("|%d| Philosopher %d %s\n", get_period(start), id + 1, message);
 	pthread_mutex_unlock(shared_mutex);
+}
+
+void	free_all(t_thread *thread)
+{
+	free(thread->philosophers);
+	free(thread->forks);
+	free(thread->info);
 }
