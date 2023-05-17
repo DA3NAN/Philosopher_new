@@ -6,7 +6,7 @@
 #    By: adnane <adnane@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/13 12:13:59 by adnane            #+#    #+#              #
-#    Updated: 2023/05/17 16:59:11 by adnane           ###   ########.fr        #
+#    Updated: 2023/05/17 23:35:40 by adnane           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ SRC =	$(wildcard *.c)
 OBJ = $(SRC:.c=.o)
 HEADER = philo.h
 CC = cc
-FLAGS = -Wall -Wextra -Werror -g -pthread -fsanitize=thread
+FLAGS = -Wall -Wextra -Werror -g -pthread
 
 all : $(NAME)
 

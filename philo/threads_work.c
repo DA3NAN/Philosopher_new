@@ -6,7 +6,7 @@
 /*   By: adnane <adnane@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 12:51:55 by adnane            #+#    #+#             */
-/*   Updated: 2023/05/17 16:56:39 by adnane           ###   ########.fr       */
+/*   Updated: 2023/05/17 23:34:57 by adnane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ void	*philosopher(void *arg)
 	t_philosopher	*info;
 
 	info = (t_philosopher *)arg;
-	if (info->id % 2 != 0)
-		usleep(info->thread_info->time_to_eat * 1000);
+	// if (info->id % 2 != 0)
+	// 	usleep(info->thread_info->time_to_eat * 1000);
 	while (1)
 	{
 		pick_up_forks(info);
@@ -28,12 +28,43 @@ void	*philosopher(void *arg)
 	}
 }
 
+int	have_ate_more_than_other(t_philosopher *info)
+{
+	int	i;
+	int	last_meal_i;
+	int	diff;
+
+	i = -1;
+	while (++i < info->thread_info->num_philo)
+	{
+		last_meal_i =  info->thread_info->info[i].last_meal;
+		pthread_mutex_lock(&info->thread_info->last_meal_mutex);
+		diff = info->last_meal - last_meal_i;
+		pthread_mutex_unlock(&info->thread_info->last_meal_mutex);
+		if (diff < 0)
+			return (1);
+	}
+	return (0);
+}
+
 void	pick_up_forks(t_philosopher *info)
 {
-	pthread_mutex_lock(info->left_fork);
-	print_message(info->thread_info, info->id, "picked up the left fork.");
-	pthread_mutex_lock(info->right_fork);
-	print_message(info->thread_info, info->id, "picked up the right fork.");
+	// if (have_ate_more_than_other(info))
+	// 	return ;
+	if (info->id == info->thread_info->num_philo - 1)
+	{
+		pthread_mutex_lock(info->right_fork);
+		print_message(info->thread_info, info->id, "picked up the right fork.");
+		pthread_mutex_lock(info->left_fork);
+		print_message(info->thread_info, info->id, "picked up the left fork.");
+	}
+	else
+	{
+		pthread_mutex_lock(info->left_fork);
+		print_message(info->thread_info, info->id, "picked up the left fork.");
+		pthread_mutex_lock(info->right_fork);
+		print_message(info->thread_info, info->id, "picked up the right fork.");
+	}
 }
 
 void	eat(t_philosopher *info)
@@ -52,9 +83,8 @@ void	eat(t_philosopher *info)
 void	put_down_forks(t_philosopher *info)
 {
 	pthread_mutex_unlock(info->right_fork);
-	print_message(info->thread_info, info->id, "put down the right fork.");
 	pthread_mutex_unlock(info->left_fork);
-	print_message(info->thread_info, info->id, "put down the left fork.");
+	print_message(info->thread_info, info->id, "put down both forks.");
 }
 
 void	sleep_and_think(t_philosopher *info)

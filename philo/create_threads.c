@@ -6,7 +6,7 @@
 /*   By: adnane <adnane@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 12:47:46 by adnane            #+#    #+#             */
-/*   Updated: 2023/05/17 16:37:02 by adnane           ###   ########.fr       */
+/*   Updated: 2023/05/17 23:30:40 by adnane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,5 @@ void	initialize_mutexes(t_thread *thread)
 		pthread_mutex_init(&thread->forks[i], NULL);
 	pthread_mutex_init(&thread->print, NULL);
 	pthread_mutex_init(&thread->last_meal_mutex, NULL);
+	pthread_mutex_init(&thread->info_mutex, NULL);
 }
