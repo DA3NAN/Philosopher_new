@@ -6,7 +6,7 @@
 /*   By: adnane <adnane@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 22:39:34 by adnane            #+#    #+#             */
-/*   Updated: 2023/05/17 15:25:43 by adnane           ###   ########.fr       */
+/*   Updated: 2023/05/17 16:57:04 by adnane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	set_thread_params(t_thread *thread, char **av)
 	thread->time_to_sleep = ft_atoi(av[4]);
 	thread->time_to_eat = ft_atoi(av[3]);
 	thread->eat_count = -1;
+	thread->all_ate = 0;
 	if (av[5])
 		thread->eat_count = ft_atoi(av[5]);
 }
@@ -40,12 +41,12 @@ int	get_period(int start_ms)
 	return (current_ms - start_ms);
 }
 
-void	print_message(int start, int id, char *message,
-			pthread_mutex_t *shared_mutex)
+void	print_message(t_thread *thread, int id, char *message)
 {
-	pthread_mutex_lock(shared_mutex);
-	printf("|%d| Philosopher %d %s\n", get_period(start), id + 1, message);
-	pthread_mutex_unlock(shared_mutex);
+	pthread_mutex_lock(&thread->print);
+	if (!thread->all_ate)
+		printf("|%d| Philosopher %d %s\n", get_period(thread->very_start), id + 1, message);
+	pthread_mutex_unlock(&thread->print);
 }
 
 void	free_all(t_thread *thread)
