@@ -6,7 +6,7 @@
 /*   By: adnane <adnane@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 12:16:53 by adnane            #+#    #+#             */
-/*   Updated: 2023/05/17 23:30:29 by adnane           ###   ########.fr       */
+/*   Updated: 2023/05/18 14:46:36 by adnane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct s_philosopher
 	int					id;
 	int					last_meal;
 	int					ate;
+	int					is_eating;
 }	t_philosopher;
 
 typedef struct s_thread

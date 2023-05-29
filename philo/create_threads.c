@@ -6,7 +6,7 @@
 /*   By: adnane <adnane@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 12:47:46 by adnane            #+#    #+#             */
-/*   Updated: 2023/05/17 23:30:40 by adnane           ###   ########.fr       */
+/*   Updated: 2023/05/18 14:46:46 by adnane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	create_philosophers(t_thread *thread)
 		thread->info[i].thread_info = thread;
 		thread->info[i].last_meal = get_period(thread->very_start);
 		thread->info[i].ate = 0;
+		thread->info[i].is_eating = 0;
 		pthread_create(&thread->philosophers[i],
 			NULL, philosopher, &thread->info[i]);
 	}
