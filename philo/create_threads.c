@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_threads.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adnane <adnane@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aait-mal <aait-mal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 12:47:46 by adnane            #+#    #+#             */
-/*   Updated: 2023/05/18 14:46:46 by adnane           ###   ########.fr       */
+/*   Updated: 2023/05/29 16:10:36 by aait-mal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	create_threads(t_thread *thread)
 {
 	create_philosophers(thread);
-	// create_death_checker(thread);
 	pthread_create(&thread->death_checker, NULL, death_checker, thread);
 	if (thread->eat_count != -1)
 		pthread_create(&thread->eat_counter, NULL, eat_counter, thread);
@@ -73,4 +72,5 @@ void	initialize_mutexes(t_thread *thread)
 	pthread_mutex_init(&thread->print, NULL);
 	pthread_mutex_init(&thread->last_meal_mutex, NULL);
 	pthread_mutex_init(&thread->info_mutex, NULL);
+	pthread_mutex_init(&thread->death_mutex, NULL);
 }

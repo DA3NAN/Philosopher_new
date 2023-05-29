@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adnane <adnane@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aait-mal <aait-mal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 22:39:34 by adnane            #+#    #+#             */
-/*   Updated: 2023/05/17 23:31:58 by adnane           ###   ########.fr       */
+/*   Updated: 2023/05/29 16:57:25 by aait-mal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	set_thread_params(t_thread *thread, char **av)
 	thread->time_to_eat = ft_atoi(av[3]);
 	thread->eat_count = -1;
 	thread->all_ate = 0;
+	thread->died = 0;
 	if (av[5])
 		thread->eat_count = ft_atoi(av[5]);
 }
@@ -44,8 +45,8 @@ int	get_period(int start_ms)
 void	print_message(t_thread *thread, int id, char *message)
 {
 	pthread_mutex_lock(&thread->print);
-	if (!thread->all_ate)
-		printf("|%d| Philosopher %d %s\n", get_period(thread->very_start), id, message);
+	if (!thread->all_ate && !thread->died)
+		printf("|%d| Philosopher %d %s\n", get_period(thread->very_start), id + 1, message);
 	pthread_mutex_unlock(&thread->print);
 }
 
@@ -54,4 +55,13 @@ void	free_all(t_thread *thread)
 	free(thread->philosophers);
 	free(thread->forks);
 	free(thread->info);
+}
+
+void    ft_sleep(int time_in_ms)
+{
+    int	time_initiale;
+
+    time_initiale = get_period(0);
+    while (get_period(time_initiale) < time_in_ms)
+        usleep(200);
 }

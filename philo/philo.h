@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adnane <adnane@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aait-mal <aait-mal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 12:16:53 by adnane            #+#    #+#             */
-/*   Updated: 2023/05/18 14:46:36 by adnane           ###   ########.fr       */
+/*   Updated: 2023/05/29 16:46:52 by aait-mal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_thread
 	pthread_mutex_t		last_meal_mutex;
 	pthread_mutex_t		eat_count_mutex;
 	pthread_mutex_t		info_mutex;
+	pthread_mutex_t		death_mutex;
 	t_philosopher		*info;
 	pthread_t			*philosophers;
 	pthread_t			death_checker;
@@ -48,6 +49,7 @@ typedef struct s_thread
 	int					time_to_eat;
 	int					eat_count;
 	int					all_ate;
+	int					died;
 	int					very_start;
 }	t_thread;
 
@@ -56,6 +58,7 @@ int		ft_atoi(const char *str);
 int		ft_isdigit(int c);
 int		get_period(int start_ms);
 void	print_message(t_thread *thread, int id, char *message);
+void    ft_sleep(int time_in_ms);
 void	free_all(t_thread *thread);
 void	allocate(t_thread *thread);
 void	set_thread_params(t_thread *thread, char **av);
