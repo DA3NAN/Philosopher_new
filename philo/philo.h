@@ -6,7 +6,7 @@
 /*   By: aait-mal <aait-mal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 12:16:53 by adnane            #+#    #+#             */
-/*   Updated: 2023/05/29 17:23:49 by aait-mal         ###   ########.fr       */
+/*   Updated: 2023/05/30 15:01:38 by aait-mal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int		ft_atoi(const char *str);
 int		ft_isdigit(int c);
 int		get_period(int start_ms);
 void	print_message(t_thread *thread, int id, char *message);
-void    ft_sleep(int time_in_ms);
+void	ft_sleep(int time_in_ms);
 void	free_all(t_thread *thread);
 void	allocate(t_thread *thread);
 void	set_thread_params(t_thread *thread, char **av);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adnane <adnane@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aait-mal <aait-mal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 22:41:13 by adnane            #+#    #+#             */
-/*   Updated: 2023/05/17 12:36:20 by adnane           ###   ########.fr       */
+/*   Updated: 2023/05/30 15:01:18 by aait-mal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,13 @@ int	ft_isdigit(int c)
 		return (1);
 	else
 		return (0);
+}
+
+void	ft_sleep(int time_in_ms)
+{
+	int	time_initiale;
+
+	time_initiale = get_period(0);
+	while (get_period(time_initiale) < time_in_ms)
+		usleep(200);
 }

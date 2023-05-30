@@ -6,7 +6,7 @@
 /*   By: aait-mal <aait-mal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 12:47:46 by adnane            #+#    #+#             */
-/*   Updated: 2023/05/29 17:24:31 by aait-mal         ###   ########.fr       */
+/*   Updated: 2023/05/30 15:00:46 by aait-mal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ void	create_philosophers(t_thread *thread)
 	{
 		thread->info[i].id = i;
 		thread->info[i].left_fork = &thread->forks[i];
-		thread->info[i].right_fork = &thread->forks[(i + 1) % thread->num_philo];
+		thread->info[i].right_fork = &thread->forks[(i + 1)
+			% thread->num_philo];
 		thread->info[i].thread_info = thread;
 		thread->info[i].last_meal = get_period(thread->very_start);
 		thread->info[i].ate = 0;

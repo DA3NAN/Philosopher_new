@@ -6,15 +6,15 @@
 /*   By: aait-mal <aait-mal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 12:51:55 by adnane            #+#    #+#             */
-/*   Updated: 2023/05/29 17:23:22 by aait-mal         ###   ########.fr       */
+/*   Updated: 2023/05/30 15:03:16 by aait-mal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void *philosopher(void *arg)
+void	*philosopher(void *arg)
 {
-	t_philosopher *info;
+	t_philosopher	*info;
 
 	info = (t_philosopher *)arg;
 	if (info->id % 2 != 0)
@@ -28,14 +28,13 @@ void *philosopher(void *arg)
 	}
 }
 
-void pick_up_forks(t_philosopher *info)
+void	pick_up_forks(t_philosopher *info)
 {
 	pthread_mutex_lock(info->left_fork);
-    print_message(info->thread_info, info->id, "picked up left fork.");
+	print_message(info->thread_info, info->id, "picked up left fork.");
 	pthread_mutex_lock(info->right_fork);
-    print_message(info->thread_info, info->id, "picked up rigth fork.");
+	print_message(info->thread_info, info->id, "picked up rigth fork.");
 }
-
 
 void	eat(t_philosopher *info)
 {
@@ -45,7 +44,8 @@ void	eat(t_philosopher *info)
 	pthread_mutex_unlock(&info->thread_info->last_meal_mutex);
 	ft_sleep(info->thread_info->time_to_eat);
 	pthread_mutex_lock(&info->thread_info->eat_count_mutex);
-	if (info->thread_info->eat_count != -1 && info->ate < info->thread_info->eat_count)
+	if (info->thread_info->eat_count != -1
+		&& info->ate < info->thread_info->eat_count)
 		info->ate++;
 	pthread_mutex_unlock(&info->thread_info->eat_count_mutex);
 }

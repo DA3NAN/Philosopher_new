@@ -6,7 +6,7 @@
 /*   By: aait-mal <aait-mal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 22:39:34 by adnane            #+#    #+#             */
-/*   Updated: 2023/05/29 17:16:42 by aait-mal         ###   ########.fr       */
+/*   Updated: 2023/05/30 14:59:44 by aait-mal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ void	print_message(t_thread *thread, int id, char *message)
 	pthread_mutex_lock(&thread->death_mutex);
 	pthread_mutex_lock(&thread->last_meal_mutex);
 	if (!thread->all_ate && !thread->died)
-		printf("|%d| Philosopher %d %s\n", get_period(thread->very_start), id + 1, message);
+		printf("|%d| Philosopher %d %s\n",
+			get_period(thread->very_start), id + 1, message);
 	pthread_mutex_unlock(&thread->print);
 	pthread_mutex_unlock(&thread->death_mutex);
 	pthread_mutex_unlock(&thread->last_meal_mutex);
@@ -59,13 +60,4 @@ void	free_all(t_thread *thread)
 	free(thread->philosophers);
 	free(thread->forks);
 	free(thread->info);
-}
-
-void    ft_sleep(int time_in_ms)
-{
-    int	time_initiale;
-
-    time_initiale = get_period(0);
-    while (get_period(time_initiale) < time_in_ms)
-        usleep(200);
 }
