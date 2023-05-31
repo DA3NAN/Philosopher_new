@@ -6,7 +6,7 @@
 /*   By: aait-mal <aait-mal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 22:39:34 by adnane            #+#    #+#             */
-/*   Updated: 2023/05/30 14:59:44 by aait-mal         ###   ########.fr       */
+/*   Updated: 2023/05/30 17:12:25 by aait-mal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	set_thread_params(t_thread *thread, char **av)
 	thread->eat_count = -1;
 	thread->all_ate = 0;
 	thread->died = 0;
+	thread->finish = 0;
 	if (av[5])
 		thread->eat_count = ft_atoi(av[5]);
 }
@@ -46,13 +47,11 @@ void	print_message(t_thread *thread, int id, char *message)
 {
 	pthread_mutex_lock(&thread->print);
 	pthread_mutex_lock(&thread->death_mutex);
-	pthread_mutex_lock(&thread->last_meal_mutex);
-	if (!thread->all_ate && !thread->died)
+	if (!thread->died)
 		printf("|%d| Philosopher %d %s\n",
 			get_period(thread->very_start), id + 1, message);
 	pthread_mutex_unlock(&thread->print);
 	pthread_mutex_unlock(&thread->death_mutex);
-	pthread_mutex_unlock(&thread->last_meal_mutex);
 }
 
 void	free_all(t_thread *thread)

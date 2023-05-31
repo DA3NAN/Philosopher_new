@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adnane <adnane@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aait-mal <aait-mal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 22:36:03 by adnane            #+#    #+#             */
-/*   Updated: 2023/05/17 12:36:55 by adnane           ###   ########.fr       */
+/*   Updated: 2023/05/30 16:43:41 by aait-mal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,14 @@ int	parse_arguments(int argc, char **argv)
 		printf("[number_of_times_each_philosopher_must_eat]\n");
 		return (1);
 	}
-	if (!is_num(argv) || !is_valid_int(argv[2])
-		|| !is_valid_int(argv[4])
-		|| !is_valid_int(argv[3])
-		|| !is_valid_int(argv[1])
+	if (!is_num(argv)
+		|| !is_valid_int(argv[2]) || ft_atoi(argv[2]) == 0
+		|| !is_valid_int(argv[4]) || ft_atoi(argv[4]) == 0
+		|| !is_valid_int(argv[3]) || ft_atoi(argv[3]) == 0
+		|| !is_valid_int(argv[1]) || ft_atoi(argv[1]) == 0
 		|| (argv[5] && !is_valid_int(argv[5])))
 	{
-		printf("All arguments must be positive integers.\n");
+		printf("All arguments must be strictly positive integers.\n");
 		return (1);
 	}
 	return (0);

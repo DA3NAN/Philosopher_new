@@ -6,7 +6,7 @@
 #    By: aait-mal <aait-mal@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/13 12:13:59 by adnane            #+#    #+#              #
-#    Updated: 2023/05/29 17:37:01 by aait-mal         ###   ########.fr        #
+#    Updated: 2023/05/31 14:25:03 by aait-mal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,6 @@ OBJ = $(SRC:.c=.o)
 HEADER = philo.h
 CC = cc
 FLAGS = -Wall -Wextra -Werror -g -pthread
-
 all : $(NAME)
 
 $(NAME) : $(OBJ)

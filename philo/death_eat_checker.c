@@ -6,7 +6,7 @@
 /*   By: aait-mal <aait-mal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 14:20:28 by adnane            #+#    #+#             */
-/*   Updated: 2023/05/30 14:58:03 by aait-mal         ###   ########.fr       */
+/*   Updated: 2023/05/31 14:17:21 by aait-mal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,11 @@ void	*death_checker(void *arg)
 				pthread_mutex_lock(&thread->death_mutex);
 				thread->died = 1;
 				pthread_mutex_unlock(&thread->death_mutex);
-				exit(1);
+				exit (1);
+				return (NULL);
 			}
 		}
-		usleep(1000);
+		// usleep(100);
 	}
 }
 
@@ -56,7 +57,6 @@ static void	check_for_count(t_thread *thread, int done_eating_count)
 			thread->all_ate = 1;
 			printf("|%d| All philosophers have eaten enough.\n",
 				get_period(thread->very_start));
-			pthread_mutex_unlock(&thread->print);
 			exit (1);
 		}
 		pthread_mutex_unlock(&thread->eat_count_mutex);
@@ -74,6 +74,6 @@ void	*eat_counter(void *arg)
 	{
 		done_eating_count = 0;
 		check_for_count(thread, done_eating_count);
-		usleep(1000);
+		// usleep(100);
 	}
 }

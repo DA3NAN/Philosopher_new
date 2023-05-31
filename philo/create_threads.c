@@ -6,7 +6,7 @@
 /*   By: aait-mal <aait-mal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 12:47:46 by adnane            #+#    #+#             */
-/*   Updated: 2023/05/30 15:00:46 by aait-mal         ###   ########.fr       */
+/*   Updated: 2023/05/30 18:08:15 by aait-mal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,13 @@ void	destroy_mutexes(t_thread *thread)
 	i = -1;
 	while (++i < thread->num_philo)
 		pthread_mutex_destroy(&thread->forks[i]);
+	pthread_mutex_destroy(&thread->print);
+	pthread_mutex_destroy(&thread->last_meal_mutex);
+	pthread_mutex_destroy(&thread->eat_count_mutex);
+	pthread_mutex_destroy(&thread->all_ate_mutex);
+	pthread_mutex_destroy(&thread->info_mutex);
+	pthread_mutex_destroy(&thread->death_mutex);
+	pthread_mutex_destroy(&thread->finish_mutex);
 }
 
 void	initialize_mutexes(t_thread *thread)
@@ -73,6 +80,8 @@ void	initialize_mutexes(t_thread *thread)
 	pthread_mutex_init(&thread->print, NULL);
 	pthread_mutex_init(&thread->last_meal_mutex, NULL);
 	pthread_mutex_init(&thread->eat_count_mutex, NULL);
+	pthread_mutex_init(&thread->all_ate_mutex, NULL);
 	pthread_mutex_init(&thread->info_mutex, NULL);
 	pthread_mutex_init(&thread->death_mutex, NULL);
+	pthread_mutex_init(&thread->finish_mutex, NULL);
 }

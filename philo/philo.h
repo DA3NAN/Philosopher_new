@@ -6,7 +6,7 @@
 /*   By: aait-mal <aait-mal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 12:16:53 by adnane            #+#    #+#             */
-/*   Updated: 2023/05/30 15:01:38 by aait-mal         ###   ########.fr       */
+/*   Updated: 2023/05/30 17:54:10 by aait-mal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,15 @@ typedef struct s_thread
 	pthread_mutex_t		print;
 	pthread_mutex_t		last_meal_mutex;
 	pthread_mutex_t		eat_count_mutex;
+	pthread_mutex_t		all_ate_mutex;
+	pthread_mutex_t		finish_mutex;
 	pthread_mutex_t		info_mutex;
 	pthread_mutex_t		death_mutex;
 	t_philosopher		*info;
 	pthread_t			*philosophers;
 	pthread_t			death_checker;
 	pthread_t			eat_counter;
+	pthread_t			finish_cheker;
 	int					num_philo;
 	int					time_to_die;
 	int					time_to_sleep;
@@ -50,6 +53,7 @@ typedef struct s_thread
 	int					eat_count;
 	int					all_ate;
 	int					died;
+	int					finish;
 	int					very_start;
 }	t_thread;
 
@@ -67,6 +71,7 @@ void	initialize_mutexes(t_thread *thread);
 void	create_philosophers(t_thread *thread);
 void	*death_checker(void *arg);
 void	*eat_counter(void *arg);
+// void	*finish_checker(void *arg);
 void	join_philosophers(t_thread *thread);
 void	destroy_mutexes(t_thread *thread);
 void	*philosopher(void *arg);
