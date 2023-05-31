@@ -6,7 +6,7 @@
 /*   By: aait-mal <aait-mal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 22:36:03 by adnane            #+#    #+#             */
-/*   Updated: 2023/05/30 16:43:41 by aait-mal         ###   ########.fr       */
+/*   Updated: 2023/05/31 17:41:16 by aait-mal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	is_valid_int(char *str)
 			return (0);
 		i++;
 	}
-	num = atoi(str);
+	num = ft_atoi(str);
 	if (num < 0 || num > INT_MAX)
 		return (0);
 	return (1);

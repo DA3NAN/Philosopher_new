@@ -6,7 +6,7 @@
 /*   By: aait-mal <aait-mal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 14:20:28 by adnane            #+#    #+#             */
-/*   Updated: 2023/05/31 14:17:21 by aait-mal         ###   ########.fr       */
+/*   Updated: 2023/05/31 17:08:55 by aait-mal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	*death_checker(void *arg)
 	t_thread	*thread;
 	int			i;
 	int			curr;
+	int			finish;
 
 	thread = (t_thread *)arg;
 	while (1)
@@ -33,33 +34,49 @@ void	*death_checker(void *arg)
 				pthread_mutex_lock(&thread->death_mutex);
 				thread->died = 1;
 				pthread_mutex_unlock(&thread->death_mutex);
-				exit (1);
-				return (NULL);
+				pthread_mutex_lock(&thread->finish_mutex);
+                thread->finish = 1;
+                pthread_mutex_unlock(&thread->finish_mutex);
+                return (NULL);
 			}
 		}
-		// usleep(100);
+		pthread_mutex_lock(&thread->finish_mutex);
+		finish = thread->finish;
+		pthread_mutex_unlock(&thread->finish_mutex);
+        if (finish == 1)
+            return (NULL);
 	}
 }
 
 static void	check_for_count(t_thread *thread, int done_eating_count)
 {
 	int	i;
+	int	ec;
+	int	ate;
 
 	i = -1;
 	while (++i < thread->num_philo)
 	{
 		pthread_mutex_lock(&thread->eat_count_mutex);
-		if (thread->info[i].ate >= thread->eat_count)
+		ec = thread->eat_count;
+		ate = thread->info[i].ate;
+		pthread_mutex_unlock(&thread->eat_count_mutex);
+		if (ate >= ec)
 			done_eating_count++;
 		if (done_eating_count == thread->num_philo)
 		{
 			pthread_mutex_lock(&thread->print);
+			pthread_mutex_lock(&thread->all_ate_mutex);
 			thread->all_ate = 1;
+			pthread_mutex_unlock(&thread->all_ate_mutex);
 			printf("|%d| All philosophers have eaten enough.\n",
 				get_period(thread->very_start));
-			exit (1);
+			pthread_mutex_lock(&thread->finish_mutex);
+            thread->finish = 1;
+            pthread_mutex_unlock(&thread->finish_mutex);
+			pthread_mutex_unlock(&thread->print);
+            return ;
 		}
-		pthread_mutex_unlock(&thread->eat_count_mutex);
 	}
 }
 
@@ -67,6 +84,7 @@ void	*eat_counter(void *arg)
 {
 	t_thread	*thread;
 	int			done_eating_count;
+	int			finish;
 
 	thread = (t_thread *)arg;
 	done_eating_count = 0;
@@ -74,6 +92,10 @@ void	*eat_counter(void *arg)
 	{
 		done_eating_count = 0;
 		check_for_count(thread, done_eating_count);
-		// usleep(100);
+		pthread_mutex_lock(&thread->finish_mutex);
+		finish = thread->finish;
+		pthread_mutex_unlock(&thread->finish_mutex);
+        if (finish == 1)
+            return (NULL);
 	}
 }

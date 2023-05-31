@@ -6,7 +6,7 @@
 /*   By: aait-mal <aait-mal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 12:51:55 by adnane            #+#    #+#             */
-/*   Updated: 2023/05/31 14:05:58 by aait-mal         ###   ########.fr       */
+/*   Updated: 2023/05/31 17:08:46 by aait-mal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,27 @@
 void	*philosopher(void *arg)
 {
 	t_philosopher	*info;
+	int				finish;
 
 	info = (t_philosopher *)arg;
 	if (info->id % 2 != 0)
 		usleep(info->thread_info->time_to_eat * 1000);
 	while (1)
 	{
+		if (info->thread_info->num_philo == 1)
+			break ;
 		pick_up_forks(info);
 		eat(info);
 		put_down_forks(info);
 		sleep_and_think(info);
-	}
+		pthread_mutex_lock(&info->thread_info->finish_mutex);
+		finish = info->thread_info->finish;
+		pthread_mutex_unlock(&info->thread_info->finish_mutex);
+        if (finish == 1)
+            break;
+    }
+
+    return (NULL);
 }
 
 void	pick_up_forks(t_philosopher *info)
@@ -38,16 +48,28 @@ void	pick_up_forks(t_philosopher *info)
 
 void	eat(t_philosopher *info)
 {
+	int	ec;
+	int	ate;
+
+	pthread_mutex_lock(&info->thread_info->eat_count_mutex);
+	ec = info->thread_info->eat_count;
+	ate = info->ate;
+	pthread_mutex_unlock(&info->thread_info->eat_count_mutex);
+
 	print_message(info->thread_info, info->id, "is eating...");
+
 	pthread_mutex_lock(&info->thread_info->last_meal_mutex);
 	info->last_meal = get_period(info->thread_info->very_start);
 	pthread_mutex_unlock(&info->thread_info->last_meal_mutex);
+
 	ft_sleep(info->thread_info->time_to_eat);
-	pthread_mutex_lock(&info->thread_info->eat_count_mutex);
-	if (info->thread_info->eat_count != -1
-		&& info->ate < info->thread_info->eat_count)
+
+	if (ec != -1 && ate < ec)
+	{
+		pthread_mutex_lock(&info->thread_info->eat_count_mutex);
 		info->ate++;
-	pthread_mutex_unlock(&info->thread_info->eat_count_mutex);
+		pthread_mutex_unlock(&info->thread_info->eat_count_mutex);
+	}
 }
 
 void	put_down_forks(t_philosopher *info)

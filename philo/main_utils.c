@@ -6,7 +6,7 @@
 /*   By: aait-mal <aait-mal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 22:39:34 by adnane            #+#    #+#             */
-/*   Updated: 2023/05/30 17:12:25 by aait-mal         ###   ########.fr       */
+/*   Updated: 2023/05/31 17:06:15 by aait-mal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,21 @@ void	print_message(t_thread *thread, int id, char *message)
 {
 	pthread_mutex_lock(&thread->print);
 	pthread_mutex_lock(&thread->death_mutex);
-	if (!thread->died)
+	// pthread_mutex_lock(&thread->all_ate_mutex);
+	if (!thread->all_ate && !thread->died)
 		printf("|%d| Philosopher %d %s\n",
 			get_period(thread->very_start), id + 1, message);
 	pthread_mutex_unlock(&thread->print);
 	pthread_mutex_unlock(&thread->death_mutex);
+	// pthread_mutex_unlock(&thread->all_ate_mutex);
 }
 
 void	free_all(t_thread *thread)
 {
-	free(thread->philosophers);
-	free(thread->forks);
-	free(thread->info);
+	if (thread->philosophers)
+		free(thread->philosophers);
+	if (thread->forks)
+		free(thread->forks);
+	if (thread->info)
+		free(thread->info);
 }

@@ -6,7 +6,7 @@
 /*   By: aait-mal <aait-mal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 12:16:53 by adnane            #+#    #+#             */
-/*   Updated: 2023/05/30 17:54:10 by aait-mal         ###   ########.fr       */
+/*   Updated: 2023/05/31 14:35:05 by aait-mal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ void	initialize_mutexes(t_thread *thread);
 void	create_philosophers(t_thread *thread);
 void	*death_checker(void *arg);
 void	*eat_counter(void *arg);
-// void	*finish_checker(void *arg);
 void	join_philosophers(t_thread *thread);
 void	destroy_mutexes(t_thread *thread);
 void	*philosopher(void *arg);
