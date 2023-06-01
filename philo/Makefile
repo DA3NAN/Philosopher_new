@@ -6,7 +6,7 @@
 #    By: aait-mal <aait-mal@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/13 12:13:59 by adnane            #+#    #+#              #
-#    Updated: 2023/05/31 16:58:22 by aait-mal         ###   ########.fr        #
+#    Updated: 2023/06/01 15:48:05 by aait-mal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ SRC =	$(wildcard *.c)
 OBJ = $(SRC:.c=.o)
 HEADER = philo.h
 CC = cc
-FLAGS = -Wall -Wextra -Werror -g -pthread
+FLAGS = -Wall -Wextra -Werror -g -pthread -fsanitize=thread
 all : $(NAME)
 
 $(NAME) : $(OBJ)

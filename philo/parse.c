@@ -6,7 +6,7 @@
 /*   By: aait-mal <aait-mal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 22:36:03 by adnane            #+#    #+#             */
-/*   Updated: 2023/05/31 17:41:16 by aait-mal         ###   ########.fr       */
+/*   Updated: 2023/06/01 15:09:41 by aait-mal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ int	is_num(char **argv)
 		j = 0;
 		while (argv[i][j])
 		{
-			if (!ft_isdigit(argv[i][j]))
+			if (!ft_isdigit(argv[i][j])
+				&& !(j == 0 && (argv[i][j] == '-' || argv[i][j] == '+')))
 				return (0);
 			j++;
 		}

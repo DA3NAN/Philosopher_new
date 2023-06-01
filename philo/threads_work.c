@@ -6,7 +6,7 @@
 /*   By: aait-mal <aait-mal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 12:51:55 by adnane            #+#    #+#             */
-/*   Updated: 2023/05/31 17:08:46 by aait-mal         ###   ########.fr       */
+/*   Updated: 2023/06/01 15:50:41 by aait-mal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,10 @@ void	*philosopher(void *arg)
 		pthread_mutex_lock(&info->thread_info->finish_mutex);
 		finish = info->thread_info->finish;
 		pthread_mutex_unlock(&info->thread_info->finish_mutex);
-        if (finish == 1)
-            break;
-    }
-
-    return (NULL);
+		if (finish == 1)
+			break ;
+	}
+	return (NULL);
 }
 
 void	pick_up_forks(t_philosopher *info)
@@ -55,15 +54,11 @@ void	eat(t_philosopher *info)
 	ec = info->thread_info->eat_count;
 	ate = info->ate;
 	pthread_mutex_unlock(&info->thread_info->eat_count_mutex);
-
 	print_message(info->thread_info, info->id, "is eating...");
-
 	pthread_mutex_lock(&info->thread_info->last_meal_mutex);
 	info->last_meal = get_period(info->thread_info->very_start);
 	pthread_mutex_unlock(&info->thread_info->last_meal_mutex);
-
 	ft_sleep(info->thread_info->time_to_eat);
-
 	if (ec != -1 && ate < ec)
 	{
 		pthread_mutex_lock(&info->thread_info->eat_count_mutex);
