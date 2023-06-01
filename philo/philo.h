@@ -6,7 +6,7 @@
 /*   By: aait-mal <aait-mal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 12:16:53 by adnane            #+#    #+#             */
-/*   Updated: 2023/05/31 14:35:05 by aait-mal         ###   ########.fr       */
+/*   Updated: 2023/06/01 16:12:10 by aait-mal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ typedef struct s_philosopher
 	int					id;
 	int					last_meal;
 	int					ate;
-	int					is_eating;
 }	t_philosopher;
 
 typedef struct s_thread
@@ -45,7 +44,6 @@ typedef struct s_thread
 	pthread_t			*philosophers;
 	pthread_t			death_checker;
 	pthread_t			eat_counter;
-	pthread_t			finish_cheker;
 	int					num_philo;
 	int					time_to_die;
 	int					time_to_sleep;

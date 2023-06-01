@@ -6,7 +6,7 @@
 /*   By: aait-mal <aait-mal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 12:47:46 by adnane            #+#    #+#             */
-/*   Updated: 2023/05/31 16:55:25 by aait-mal         ###   ########.fr       */
+/*   Updated: 2023/06/01 16:12:14 by aait-mal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	create_philosophers(t_thread *thread)
 		thread->info[i].thread_info = thread;
 		thread->info[i].last_meal = get_period(thread->very_start);
 		thread->info[i].ate = 0;
-		thread->info[i].is_eating = 0;
 		pthread_create(&thread->philosophers[i],
 			NULL, philosopher, &thread->info[i]);
 	}

@@ -6,7 +6,7 @@
 /*   By: aait-mal <aait-mal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 12:51:55 by adnane            #+#    #+#             */
-/*   Updated: 2023/06/01 15:50:41 by aait-mal         ###   ########.fr       */
+/*   Updated: 2023/06/01 16:17:21 by aait-mal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	*philosopher(void *arg)
 
 	info = (t_philosopher *)arg;
 	if (info->id % 2 != 0)
-		usleep(info->thread_info->time_to_eat * 1000);
+		ft_sleep(info->thread_info->time_to_eat);
 	while (1)
 	{
 		if (info->thread_info->num_philo == 1)
