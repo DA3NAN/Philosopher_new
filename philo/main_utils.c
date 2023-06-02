@@ -6,17 +6,24 @@
 /*   By: aait-mal <aait-mal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 22:39:34 by adnane            #+#    #+#             */
-/*   Updated: 2023/06/01 15:48:40 by aait-mal         ###   ########.fr       */
+/*   Updated: 2023/06/02 18:39:18 by aait-mal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	allocate(t_thread *thread)
+int	allocate(t_thread *thread)
 {
 	thread->philosophers = malloc(thread->num_philo * sizeof(pthread_t));
+	if (!thread->philosophers)
+		return (0);
 	thread->forks = malloc(thread->num_philo * sizeof(pthread_mutex_t));
+	if (!thread->forks)
+		return (free(thread->philosophers), 0);
 	thread->info = malloc(thread->num_philo * sizeof(t_philosopher));
+	if (!thread->info)
+		return (free(thread->philosophers), free(thread->forks), 0);
+	return (1);
 }
 
 void	set_thread_params(t_thread *thread, char **av)

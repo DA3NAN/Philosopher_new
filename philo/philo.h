@@ -6,7 +6,7 @@
 /*   By: aait-mal <aait-mal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 12:16:53 by adnane            #+#    #+#             */
-/*   Updated: 2023/06/01 16:12:10 by aait-mal         ###   ########.fr       */
+/*   Updated: 2023/06/02 18:43:23 by aait-mal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int		get_period(int start_ms);
 void	print_message(t_thread *thread, int id, char *message);
 void	ft_sleep(int time_in_ms);
 void	free_all(t_thread *thread);
-void	allocate(t_thread *thread);
+int		allocate(t_thread *thread);
 void	set_thread_params(t_thread *thread, char **av);
 void	create_threads(t_thread *thread);
 void	initialize_mutexes(t_thread *thread);
@@ -72,7 +72,7 @@ void	*eat_counter(void *arg);
 void	join_philosophers(t_thread *thread);
 void	destroy_mutexes(t_thread *thread);
 void	*philosopher(void *arg);
-void	pick_up_forks(t_philosopher *info);
+int		pick_up_forks(t_philosopher *info);
 void	eat(t_philosopher *info);
 void	put_down_forks(t_philosopher *info);
 void	sleep_and_think(t_philosopher *info);

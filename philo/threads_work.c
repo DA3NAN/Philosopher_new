@@ -6,7 +6,7 @@
 /*   By: aait-mal <aait-mal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 12:51:55 by adnane            #+#    #+#             */
-/*   Updated: 2023/06/01 16:17:21 by aait-mal         ###   ########.fr       */
+/*   Updated: 2023/06/02 18:45:36 by aait-mal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,8 @@ void	*philosopher(void *arg)
 		ft_sleep(info->thread_info->time_to_eat);
 	while (1)
 	{
-		if (info->thread_info->num_philo == 1)
+		if (!pick_up_forks(info))
 			break ;
-		pick_up_forks(info);
 		eat(info);
 		put_down_forks(info);
 		sleep_and_think(info);
@@ -37,12 +36,18 @@ void	*philosopher(void *arg)
 	return (NULL);
 }
 
-void	pick_up_forks(t_philosopher *info)
+int	pick_up_forks(t_philosopher *info)
 {
 	pthread_mutex_lock(info->left_fork);
 	print_message(info->thread_info, info->id, "picked up left fork.");
+	if (info->thread_info->num_philo == 1)
+	{
+		pthread_mutex_unlock(info->left_fork);
+		return (0);
+	}
 	pthread_mutex_lock(info->right_fork);
 	print_message(info->thread_info, info->id, "picked up rigth fork.");
+	return (1);
 }
 
 void	eat(t_philosopher *info)
