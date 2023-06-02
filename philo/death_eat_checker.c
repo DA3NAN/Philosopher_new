@@ -6,7 +6,7 @@
 /*   By: aait-mal <aait-mal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 14:20:28 by adnane            #+#    #+#             */
-/*   Updated: 2023/06/01 16:20:46 by aait-mal         ###   ########.fr       */
+/*   Updated: 2023/06/02 18:59:32 by aait-mal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void	*death_checker(void *arg)
 		pthread_mutex_unlock(&thread->finish_mutex);
 		if (finish == 1)
 			return (NULL);
+		usleep(1000);
 	}
 }
 
@@ -103,5 +104,6 @@ void	*eat_counter(void *arg)
 		pthread_mutex_unlock(&thread->finish_mutex);
 		if (finish == 1)
 			return (NULL);
+		usleep(1000);
 	}
 }
