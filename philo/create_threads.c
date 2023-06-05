@@ -6,7 +6,7 @@
 /*   By: aait-mal <aait-mal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 12:47:46 by adnane            #+#    #+#             */
-/*   Updated: 2023/06/01 16:12:14 by aait-mal         ###   ########.fr       */
+/*   Updated: 2023/06/05 16:07:18 by aait-mal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ void	destroy_mutexes(t_thread *thread)
 	pthread_mutex_destroy(&thread->last_meal_mutex);
 	pthread_mutex_destroy(&thread->eat_count_mutex);
 	pthread_mutex_destroy(&thread->all_ate_mutex);
-	pthread_mutex_destroy(&thread->info_mutex);
 	pthread_mutex_destroy(&thread->death_mutex);
 	pthread_mutex_destroy(&thread->finish_mutex);
 }
@@ -80,7 +79,6 @@ void	initialize_mutexes(t_thread *thread)
 	pthread_mutex_init(&thread->last_meal_mutex, NULL);
 	pthread_mutex_init(&thread->eat_count_mutex, NULL);
 	pthread_mutex_init(&thread->all_ate_mutex, NULL);
-	pthread_mutex_init(&thread->info_mutex, NULL);
 	pthread_mutex_init(&thread->death_mutex, NULL);
 	pthread_mutex_init(&thread->finish_mutex, NULL);
 }
